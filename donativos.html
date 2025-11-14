@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donativos - ReciclaTEC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --light-green: #e8f8f5;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --dark-blue: #2980b9;
+            --light-green: #e8f8f5;
+            --light-blue: #ebf5fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-green);
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+                .footer {
+            background: linear-gradient(135deg, var(--dark-green), var(--dark-blue));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .integrantes {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integrante {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .progress-section {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #ecf0f1;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+
+        .progress-info {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .donation-amounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .amount-btn {
+            padding: 1rem;
+            border: 2px solid var(--primary-green);
+            background: var(--white);
+            color: var(--primary-green);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.active {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 30px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">♻️ ReciclaTEC</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="plataforma.html">🏠 Home</a></li>
+                <li><a href="mapa.html">🗺️ Map</a></li>
+                <li><a href="tienda.html">🛒 Shop</a></li>
+                <li><a href="educacion.html">📚 Learn</a></li>
+                <li><a href="donativos.html">💝 Donations</a></li>
+                <li><a href="contacto.html">📧 Contact</a></li>
+                <li><a href="perfil.html">👤 Profile</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">💝 Support Our Mission</h1>
+        <p class="page-subtitle">Your donation helps fund recycling operations and environmental education</p>
+        <div class="card">
+            <h3>📊 Monthly Donation Progress</h3>
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 0%;">0%</div>
+                </div>
+                <div class="progress-info">
+                    <strong id="totalDonations">$0</strong> of $10,000 Monthly Goal
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Make Your Donation</h3>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Select an amount or enter a custom one</p>
+            
+            <div class="donation-amounts">
+                <button class="amount-btn" onclick="selectAmount(10)">$10</button>
+                <button class="amount-btn" onclick="selectAmount(25)">$25</button>
+                <button class="amount-btn" onclick="selectAmount(50)">$50</button>
+                <button class="amount-btn" onclick="selectAmount(100)">$100</button>
+            </div>
+
+            <form id="donationForm">
+                <div class="form-group">
+                    <label for="customAmount">Custom Amount (USD)</label>
+                    <input type="number" id="customAmount" min="1" placeholder="Enter an amount">
+                </div>
+                
+                <div class="form-group">
+                    <label for="donorName">Name</label>
+                    <input type="text" id="donorName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donorEmail">Email</label>
+                    <input type="email" id="donorEmail" required>
+                </div>
+                
+                <button type="submit" class="btn">💚 Donate Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>♻️ ReciclaTEC</h3>
+            <p>E-Waste Management and Recycling Platform</p>
+            <p>San Pedro de Macorís, Dominican Republic</p>
+            
+            <div class="integrantes">
+                <div class="integrante">Eliezer</div>
+                <div class="integrante">Noah</div>
+                <div class="integrante">Dionibel</div>
+                <div class="integrante">Esmirna</div>
+                <div class="integrante">Edmy</div>
+                <div class="integrante">Ángela</div>
+            </div>
+            
+            <p style="margin-top: 2rem;">Universidad Central del Este / English Immersion Program</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">© 2025 ReciclaTEC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let donations = JSON.parse(localStorage.getItem('reciclatec_donations')) || [];
+        let selectedAmount = 0;
+
+        function updateProgress() {
+            const total = donations.reduce((sum, d) => sum + parseFloat(d.amount), 0);
+            const goal = 10000;
+            const percentage = Math.min((total / goal) * 100, 100);
+            
+            document.getElementById('totalDonations').textContent = '$' + total.toFixed(2);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage.toFixed(0) + '%';
+        }
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            document.getElementById('customAmount').value = amount;
+            
+            // Update button states
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const amount = document.getElementById('customAmount').value;
+            const name = document.getElementById('donorName').value;
+            const email = document.getElementById('donorEmail').value;
+            
+            if (!amount || amount <= 0) {
+                showToast('Please enter a valid donation amount');
+                return;
+            }
+            
+            const newDonation = {
+                id: Date.now(),
+                name,
+                email,
+                amount: parseFloat(amount),
+                fecha: new Date().toLocaleDateString()
+            };
+            
+            donations.push(newDonation);
+            localStorage.setItem('reciclatec_donations', JSON.stringify(donations));
+            
+            showToast('Thank you for your generous donation of $' + amount + '!');
+            this.reset();
+            selectedAmount = 0;
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            updateProgress();
+        });
+
+        // Update on custom amount change
+        document.getElementById('customAmount').addEventListener('input', function() {
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

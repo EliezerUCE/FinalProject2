@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación - ReciclaTEC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --light-green: #e8f8f5;
+            --light-blue: #ebf5fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --dark-blue: #2980b9;
+            --light-green: #e8f8f5;
+            --light-blue: #ebf5fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-green);
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+        }
+
+                .footer {
+            background: linear-gradient(135deg, var(--dark-green), var(--dark-blue));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .integrantes {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integrante {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .edu-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .edu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .edu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--light-blue);
+        }
+
+        .edu-card-content {
+            padding: 1.5rem;
+        }
+
+        .edu-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--light-green);
+            color: var(--dark-green);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .edu-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .edu-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--white);
+            text-decoration: none;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .impact-section {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impact-item {
+            padding: 1.5rem;
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .impact-label {
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">♻️ ReciclaTEC</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="plataforma.html">🏠 Home</a></li>
+                <li><a href="mapa.html">🗺️ Map</a></li>
+                <li><a href="tienda.html">🛒 Shop</a></li>
+                <li><a href="educacion.html">📚 Learn</a></li>
+                <li><a href="donativos.html">💝 Donations</a></li>
+                <li><a href="contacto.html">📧 Contact</a></li>
+                <li><a href="perfil.html">👤 Profile</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">📚 Learning Center</h1>
+        <p class="page-subtitle">Discover how you can make a difference by recycling responsibly</p>
+        <div class="impact-section">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">The Impact of E-Waste</h2>
+            <p style="max-width: 700px; margin: 0 auto 2rem; color: var(--text-light);">
+                Millions of tons of electronic waste are generated every year. Learn how your actions can create a more sustainable future.
+            </p>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="impact-icon">🌍</div>
+                    <div class="impact-value">50M</div>
+                    <div class="impact-label">Tons of E-Waste per Year</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">♻️</div>
+                    <div class="impact-value">20%</div>
+                    <div class="impact-label">Properly Recycled</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">🌱</div>
+                    <div class="impact-value">90%</div>
+                    <div class="impact-label">Can be Recycled</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="edu-grid" id="eduGrid"></div>
+    </div>
+
+        <footer class="footer">
+        <div class="footer-content">
+            <h3>♻️ ReciclaTEC</h3>
+            <p>E-Waste Management and Recycling Platform</p>
+            <p>San Pedro de Macorís, Dominican Republic</p>
+            
+            <div class="integrantes">
+                <div class="integrante">Eliezer</div>
+                <div class="integrante">Noah</div>
+                <div class="integrante">Dionibel</div>
+                <div class="integrante">Esmirna</div>
+                <div class="integrante">Edmy</div>
+                <div class="integrante">Ángela</div>
+            </div>
+            
+            <p style="margin-top: 2rem;">Universidad Central del Este / English Immersion Program</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">© 2025 ReciclaTEC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
+    <script>
+        const eduResources = [
+            {
+                title: 'Complete Guide to Electronic Recycling',
+                type: 'Article',
+                description: 'Learn the basics of electronic device recycling and how to prepare your equipment.',
+                image: './Resources/Complete Guide to Electronic Recycling.jpg',
+                icon: '📖'
+            },
+            {
+                title: 'Environmental Impact of E-Waste',
+                type: 'Video',
+                description: '15-minute documentary on the effects of electronic waste on our planet.',
+                image: './Resources/Environmental Impact of E-Waste.jpg',
+                icon: '🎥'
+            },
+            {
+                title: 'How to Prepare Devices for Recycling',
+                type: 'Tutorial',
+                description: 'Detailed steps to erase data and safely hand over your equipment.',
+                image: './Resources/How to Prepare Devices for Recycling.jpg',
+                icon: '🔧'
+            },
+            {
+                title: 'Responsible Recycling Certification',
+                type: 'Course',
+                description: '4-week online course to become a certified environmental ambassador.',
+                image: './Resources/Responsible Recycling Certification.png',
+                icon: '🎓'
+            },
+            {
+                title: 'Electronic Components and Their Recycling',
+                type: 'Infographic',
+                description: 'Interactive visualization of how different parts of devices are recycled.',
+                image: './Resources/Electronic Components and Their Recycling.webp',
+                icon: '📊'
+            },
+            {
+                title: 'Impact Stories from the Community',
+                type: 'Testimonials',
+                description: 'Meet people who have transformed their communities through recycling.',
+                image: './Resources/Impact Stories from the Community.jpg',
+                icon: '💬'
+            },
+            {
+                title: 'Circular Economy and Technology',
+                type: 'Webinar',
+                description: 'Live session on the future of the circular economy in the technology industry.',
+                image: './Resources/Circular Economy and Technology.jpg',
+                icon: '🔄'
+            },
+            {
+                title: 'Recycling for Kids: Fun Games',
+                type: 'Interactive',
+                description: 'Educational games to teach the little ones about caring for the environment.',
+                image: './Resources/Recycling for Kids Fun Games.webp',
+                icon: '🎮'
+            }
+        ];
+
+        function renderEducation() {
+            const grid = document.getElementById('eduGrid');
+            grid.innerHTML = eduResources.map(resource => `
+                <div class="edu-card">
+                    <img src="${resource.image}" alt="${resource.title}">
+                    <div class="edu-card-content">
+                        <span class="edu-type">${resource.icon} ${resource.type}</span>
+                        <h3>${resource.title}</h3>
+                        <p>${resource.description}</p>
+                        <a href="#" class="btn" onclick="accessResource(event, '${resource.title}')">Access Resource</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function accessResource(event, title) {
+            event.preventDefault();
+            alert(`Accessing: ${title}\n\n(In a real implementation, this would open the educational content)`);
+        }
+
+        // Initialize
+        renderEducation();
+    </script>
+</body>
+</html>

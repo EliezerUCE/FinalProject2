@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReciclaTEC - Plataforma de Gestión y Reciclaje de E-Waste</title>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --dark-blue: #2980b9;
+            --light-green: #e8f8f5;
+            --light-blue: #ebf5fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-green), var(--light-blue));
+            padding: 150px 2rem 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/placeholder.svg?height=800&width=1600') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--white);
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .card p, .card ul {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .card ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+
+        /* Objetivos Section */
+        .objetivos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .objetivo-card {
+            background: linear-gradient(135deg, var(--light-green), var(--light-blue));
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-green);
+        }
+
+        /* Beneficios Section */
+        .beneficios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .beneficio-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .beneficio-card:hover {
+            transform: scale(1.05);
+        }
+
+        .beneficio-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Modulos Section */
+        .modulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Usuarios Section */
+        .usuarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Interfaces Section */
+        .interfaces-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .interface-img {
+            width: 100%;
+            height: 300px;
+            background: var(--light-green);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        /*Tabla Cronograma */
+        .tabla-cronograma {
+            width: 100%;
+            margin-top: 2rem;
+            border-collapse: collapse;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tabla-cronograma th {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .tabla-cronograma td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .tabla-cronograma tr:hover {
+            background: var(--light-green);
+        }
+
+        /* Carta */
+        .carta {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+            border: 2px solid var(--light-green);
+        }
+
+        .carta-header {
+            text-align: right;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-green), var(--dark-blue));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .integrantes {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integrante {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu a {
+                padding: 1rem;
+                width: 100%;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid,
+            .objetivos-grid,
+            .beneficios-grid,
+            .modulos-grid,
+            .usuarios-grid,
+            .interfaces-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 60px 1rem;
+            }
+
+            .tabla-cronograma {
+                font-size: 0.9rem;
+            }
+
+            .carta {
+                padding: 1.5rem;
+            }
+
+            /* Responsive styling for translate button on mobile */
+            .translate-btn {
+                margin-top: 1rem;
+                margin-right: 1rem;
+            }
+        }
+
+        /* Background Sections */
+        .bg-light {
+            background: linear-gradient(135deg, var(--light-green), var(--light-blue));
+        }
+
+        .bg-white {
+            background: var(--white);
+        }
+
+        /* Added translate button styles */
+        .translate-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .translate-btn:hover {
+            background: var(--white);
+            color: var(--primary-green);
+        }
+
+        /* Added styles for the platform button */
+        .platform-cta-section {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            padding: 80px 2rem;
+            text-align: center;
+        }
+
+        .platform-btn {
+            background: var(--white);
+            color: var(--primary-green);
+            padding: 1.5rem 4rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .platform-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .platform-cta-section h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span>♻️</span> ReciclaTEC
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#problema">Problema</a></li>
+                <li><a href="#solucion">Solución</a></li>
+                <li><a href="#plataforma">Plataforma</a></li>
+                <li><a href="#educacion">Educación</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <!-- Added translate button to navbar -->
+            <button class="translate-btn" id="translateBtn" onclick="toggleLanguage()">
+                <span id="translateIcon">🌐</span>
+                <span id="translateText">English</span>
+            </button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>ReciclaTEC</h1>
+            <p>Plataforma de Gestión y Reciclaje de E-Waste en San Pedro de Macorís</p>
+            <p style="font-size: 1.1rem; margin-top: 1rem;">Transformando residuos electrónicos en oportunidades sostenibles para nuestra comunidad</p>
+            <a href="#plataforma" class="btn-primary">Comenzar</a>
+        </div>
+    </section>
+
+    <!-- Objetivos Section -->
+    <section class="container" id="objetivos">
+        <h2 class="section-title">Objetivos del Proyecto</h2>
+        <p class="section-subtitle">Nuestra misión para un futuro más sostenible</p>
+        
+        <div class="objetivos-grid">
+            <div class="objetivo-card">
+                <h3>🎯 Objetivo General</h3>
+                <p>Desarrollar una plataforma web integral de gestión y reciclaje de residuos electrónicos (e-waste) para la ciudad de San Pedro de Macorís, que facilite la recolección, procesamiento y reutilización de dispositivos electrónicos, promoviendo prácticas sostenibles y reduciendo el impacto ambiental de los desechos tecnológicos en la región.</p>
+            </div>
+            
+            <div class="objetivo-card">
+                <h3>📋 Objetivos Específicos</h3>
+                <ul>
+                    <li>Implementar un sistema de registro y geolocalización de puntos de recolección de e-waste accesibles para los ciudadanos</li>
+                    <li>Crear un módulo educativo sobre el impacto ambiental del e-waste y las buenas prácticas de reciclaje</li>
+                    <li>Desarrollar una tienda virtual para la venta de equipos reacondicionados y componentes reutilizables</li>
+                    <li>Establecer un sistema de gestión de almacenes para el control de inventario de residuos electrónicos</li>
+                    <li>Facilitar la integración con empresas y gobierno local para la gestión coordinada de e-waste</li>
+                    <li>Implementar un sistema de donativos para financiar las operaciones de reciclaje</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema Section -->
+    <section class="container bg-light" id="problema">
+        <h2 class="section-title">Identificación del Problema</h2>
+        <p class="section-subtitle">El desafío del e-waste en San Pedro de Macorís</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">⚠️</div>
+                <h3>Problema Identificado</h3>
+                <p>San Pedro de Macorís enfrenta una creciente acumulación de residuos electrónicos (e-waste) sin un sistema formal de gestión. Dispositivos como computadoras, teléfonos móviles, electrodomésticos y equipos industriales son desechados inadecuadamente, terminando en vertederos o siendo quemados, lo que genera contaminación ambiental y riesgos para la salud pública debido a la liberación de sustancias tóxicas como plomo, mercurio y cadmio.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Planteamiento del Problema</h3>
+                <p>La ausencia de infraestructura y conocimiento sobre el manejo adecuado de e-waste ha resultado en:</p>
+                <ul>
+                    <li>Contaminación del suelo y fuentes de agua</li>
+                    <li>Pérdida de materiales valiosos y reciclables</li>
+                    <li>Falta de conciencia ciudadana sobre los riesgos</li>
+                    <li>Inexistencia de puntos de recolección accesibles</li>
+                    <li>Desaprovechamiento de oportunidades económicas en el sector del reciclaje</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Base Teórica Section -->
+    <section class="container" id="base-teorica">
+        <h2 class="section-title">Base Teórica</h2>
+        <p class="section-subtitle">Fundamentos que sustentan nuestra solución</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <h3>Impacto Ambiental del E-Waste</h3>
+                <p>Los residuos electrónicos representan el flujo de desechos de más rápido crecimiento a nivel mundial. Contienen materiales peligrosos que, al no ser gestionados adecuadamente, contaminan ecosistemas y afectan la salud humana. Sin embargo, también contienen materiales valiosos como oro, plata, cobre y tierras raras que pueden ser recuperados mediante procesos de reciclaje adecuados.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>Rol de la Ingeniería de Software</h3>
+                <p>La ingeniería de software juega un papel crucial en la creación de sistemas que optimizan la gestión de recursos, facilitan la trazabilidad de materiales y conectan a múltiples actores (ciudadanos, empresas, gobierno). Mediante plataformas digitales, se pueden automatizar procesos, reducir costos operativos y aumentar la eficiencia en la cadena de reciclaje.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <h3>Tecnologías para Sostenibilidad</h3>
+                <p>Tecnologías como sistemas de información geográfica (GIS), bases de datos en la nube, aplicaciones web responsivas, y sistemas de gestión de inventarios permiten crear soluciones escalables y accesibles. Estas herramientas facilitan el seguimiento en tiempo real, la toma de decisiones basada en datos y la transparencia en las operaciones de reciclaje.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3>Ejemplo Exitoso: E-Parisaraa (India)</h3>
+                <p>E-Parisaraa es la primera instalación de reciclaje de e-waste certificada en India. Ha procesado miles de toneladas de residuos electrónicos, recuperando materiales valiosos y creando empleos. Su modelo integra tecnología, educación ambiental y colaboración con sectores público y privado, demostrando que el reciclaje de e-waste puede ser tanto sostenible como económicamente viable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios Section -->
+    <section class="container bg-light" id="beneficios">
+        <h2 class="section-title">Beneficios del Proyecto</h2>
+        <p class="section-subtitle">Impacto positivo en múltiples dimensiones</p>
+        
+        <div class="beneficios-grid">
+            <div class="beneficio-card">
+                <div class="beneficio-icon">🌱</div>
+                <h3>Ambientales</h3>
+                <p>Reducción de contaminación del suelo y agua, disminución de emisiones tóxicas, y conservación de recursos naturales mediante el reciclaje.</p>
+            </div>
+            
+            <div class="beneficio-card">
+                <div class="beneficio-icon">💰</div>
+                <h3>Económicos</h3>
+                <p>Generación de empleos verdes, creación de una industria de reciclaje local, y recuperación de materiales valiosos para reventa.</p>
+            </div>
+            
+            <div class="beneficio-card">
+                <div class="beneficio-icon">👥</div>
+                <h3>Sociales</h3>
+                <p>Educación ambiental, mejora de la salud pública, acceso a dispositivos reacondicionados a bajo costo, y participación comunitaria.</p>
+            </div>
+            
+            <div class="beneficio-card">
+                <div class="beneficio-icon">🏢</div>
+                <h3>Empresas/Gobierno</h3>
+                <p>Cumplimiento de normativas ambientales, mejora de imagen corporativa, gestión eficiente de residuos institucionales, y datos para políticas públicas.</p>
+            </div>
+            
+            <div class="beneficio-card">
+                <div class="beneficio-icon">🚀</div>
+                <h3>Tecnológicos</h3>
+                <p>Innovación en gestión de residuos, digitalización de procesos, trazabilidad de materiales, y modelo replicable para otras regiones.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solución: Acciones Section -->
+    <section class="container" id="solucion">
+        <h2 class="section-title">Acciones que Resuelven el Problema</h2>
+        <p class="section-subtitle">Estrategias integradas para una gestión efectiva</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📍</div>
+                <h3>Puntos de Recolección</h3>
+                <p>Establecimiento de centros de acopio estratégicamente ubicados y mapeados en la plataforma para facilitar el acceso ciudadano.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>Educación y Concienciación</h3>
+                <p>Campañas educativas a través del módulo digital sobre los peligros del e-waste y la importancia del reciclaje responsable.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>Economía Circular</h3>
+                <p>Reacondicionamiento y reventa de equipos funcionales, y reciclaje de componentes para recuperar materiales valiosos.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Colaboración Interinstitucional</h3>
+                <p>Integración con empresas privadas y gobierno local para una gestión coordinada y sostenible del e-waste.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plataforma: Módulos Section -->
+    <section class="container bg-light" id="plataforma">
+        <h2 class="section-title">Módulos de la Plataforma</h2>
+        <p class="section-subtitle">Sistema integral de gestión de e-waste</p>
+        
+        <div class="modulos-grid">
+            <div class="card">
+                <div class="card-icon">👤</div>
+                <h3>Registro de Usuarios</h3>
+                <p>Sistema de autenticación y perfiles diferenciados para ciudadanos, empresas y entidades gubernamentales, con seguimiento de actividades y contribuciones al reciclaje.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🗺️</div>
+                <h3>Geolocalización</h3>
+                <p>Mapa interactivo con puntos de recolección de e-waste, horarios de atención, tipos de residuos aceptados y rutas optimizadas para el usuario.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🛒</div>
+                <h3>Tienda Virtual</h3>
+                <p>Marketplace para la venta de dispositivos reacondicionados, componentes reutilizables y productos fabricados con materiales reciclados, con sistema de pago seguro.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <h3>Gestión de Almacenes</h3>
+                <p>Control de inventario de residuos electrónicos recolectados, clasificación por categorías, seguimiento del procesamiento y reportes de material recuperado.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📖</div>
+                <h3>Apartado Educativo</h3>
+                <p>Recursos didácticos, guías de reciclaje, estadísticas de impacto ambiental, videos tutoriales y certificaciones para usuarios comprometidos con el reciclaje.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">💝</div>
+                <h3>Sistema de Donativos</h3>
+                <p>Plataforma de crowdfunding y donaciones para financiar operaciones de reciclaje, con transparencia en el uso de fondos y reconocimiento a contribuyentes.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🏭</div>
+                <h3>Integración Empresarial</h3>
+                <p>Portal para empresas y gobierno que facilita la gestión de grandes volúmenes de e-waste, generación de reportes de cumplimiento y coordinación de recolecciones especiales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usuarios del Sistema Section -->
+    <section class="container" id="usuarios">
+        <h2 class="section-title">Usuarios del Sistema</h2>
+        <p class="section-subtitle">Plataforma diseñada para múltiples actores</p>
+        
+        <div class="usuarios-grid">
+            <div class="card">
+                <div class="card-icon">👨‍👩‍👧‍👦</div>
+                <h3>Ciudadanos</h3>
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Localizar puntos de recolección cercanos</li>
+                    <li>Registrar dispositivos para reciclaje</li>
+                    <li>Acceder a contenido educativo</li>
+                    <li>Comprar productos reacondicionados</li>
+                    <li>Realizar donaciones</li>
+                    <li>Ver su impacto ambiental acumulado</li>
+                    <li>Recibir notificaciones de campañas</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🏢</div>
+                <h3>Empresas</h3>
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Gestionar grandes volúmenes de e-waste</li>
+                    <li>Solicitar recolecciones corporativas</li>
+                    <li>Generar reportes de cumplimiento ambiental</li>
+                    <li>Acceder a certificaciones de reciclaje</li>
+                    <li>Comprar equipos reacondicionados al por mayor</li>
+                    <li>Participar en programas de responsabilidad social</li>
+                    <li>Recibir asesoría en gestión de residuos</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🏛️</div>
+                <h3>Gobierno Local</h3>
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Monitorear estadísticas de recolección</li>
+                    <li>Gestionar campañas públicas de reciclaje</li>
+                    <li>Coordinar con instituciones educativas</li>
+                    <li>Generar reportes para políticas públicas</li>
+                    <li>Supervisar cumplimiento de normativas</li>
+                    <li>Planificar infraestructura de reciclaje</li>
+                    <li>Comunicar iniciativas ambientales</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Especificaciones: Diseño Section -->
+    <section class="container bg-light" id="especificaciones">
+        <h2 class="section-title">Especificaciones de Diseño</h2>
+        <p class="section-subtitle">Arquitectura y características técnicas</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>Diseño de la Plataforma</h3>
+                <ul>
+                    <li><strong>Interfaz:</strong> Diseño responsivo y adaptable a dispositivos móviles, tablets y computadoras</li>
+                    <li><strong>Usabilidad:</strong> Navegación intuitiva con arquitectura de información clara</li>
+                    <li><strong>Accesibilidad:</strong> Cumplimiento de estándares WCAG para usuarios con discapacidades</li>
+                    <li><strong>Identidad visual:</strong> Paleta de colores ecológicos (verdes y azules) que reflejan sostenibilidad</li>
+                    <li><strong>Experiencia:</strong> Flujos de usuario optimizados para completar tareas rápidamente</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Arquitectura Técnica</h3>
+                <ul>
+                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (React/Next.js)</li>
+                    <li><strong>Backend:</strong> Node.js con Express o Django/Python</li>
+                    <li><strong>Base de datos:</strong> PostgreSQL o MongoDB</li>
+                    <li><strong>Mapas:</strong> Integración con Google Maps API o Mapbox</li>
+                    <li><strong>Hosting:</strong> Servicios en la nube (AWS, Azure, o Vercel)</li>
+                    <li><strong>Seguridad:</strong> Encriptación SSL, autenticación JWT, protección GDPR</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interfaces Section -->
+    <section class="container" id="interfaces">
+        <h2 class="section-title">Interfaces (Vista Prototipo)</h2>
+        <p class="section-subtitle">Visualización de los módulos principales</p>
+        
+        <div class="interfaces-grid">
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Dashboard Principal" class="interface-img">
+                <h3>Dashboard Principal</h3>
+                <p>Pantalla de inicio con acceso rápido a todas las funcionalidades, estadísticas de impacto y mapa de puntos de recolección.</p>
+            </div>
+            
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Módulo de Geolocalización" class="interface-img">
+                <h3>Módulo de Geolocalización</h3>
+                <p>Mapa interactivo que muestra puntos de recolección cercanos con información detallada y opciones de navegación.</p>
+            </div>
+            
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Tienda Virtual" class="interface-img">
+                <h3>Tienda Virtual</h3>
+                <p>Marketplace de productos reacondicionados con filtros de búsqueda, sistema de pago y seguimiento de pedidos.</p>
+            </div>
+            
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Gestión de Inventario" class="interface-img">
+                <h3>Gestión de Inventario</h3>
+                <p>Panel administrativo para control de almacenes, clasificación de residuos y reportes de procesamiento.</p>
+            </div>
+            
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Módulo Educativo" class="interface-img">
+                <h3>Módulo Educativo</h3>
+                <p>Recursos didácticos interactivos, videos, artículos y certificaciones sobre reciclaje responsable.</p>
+            </div>
+            
+            <div class="card">
+                <img src="/placeholder.svg?height=300&width=400" alt="Sistema de Donativos" class="interface-img">
+                <h3>Sistema de Donativos</h3>
+                <p>Plataforma transparente de crowdfunding con seguimiento de fondos y reconocimiento a donantes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusión Section -->
+    <section class="container bg-light" id="conclusion">
+        <h2 class="section-title">Conclusión</h2>
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card">
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    ReciclaTEC representa una solución integral e innovadora para abordar el problema creciente de los residuos electrónicos en San Pedro de Macorís. Mediante la implementación de una plataforma digital robusta que integra múltiples módulos (geolocalización, educación, comercio, gestión de inventarios y colaboración interinstitucional), el proyecto no solo facilita la gestión adecuada del e-waste, sino que también promueve una cultura de sostenibilidad y responsabilidad ambiental.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 1rem;">
+                    Los beneficios de esta iniciativa son multidimensionales: ambientales (reducción de contaminación), económicos (generación de empleos y recuperación de materiales valiosos), sociales (educación y salud pública), y tecnológicos (innovación en gestión de residuos). La participación activa de ciudadanos, empresas y gobierno local es fundamental para el éxito del proyecto, creando un ecosistema colaborativo que transforma los desafíos ambientales en oportunidades de desarrollo sostenible.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 1rem;">
+                    Con ReciclaTEC, San Pedro de Macorís puede posicionarse como referente regional en gestión de e-waste, demostrando que la tecnología y la conciencia ambiental pueden trabajar juntas para construir un futuro más limpio, verde y próspero para las generaciones presentes y futuras.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educación Section -->
+    <section class="container" id="educacion">
+        <h2 class="section-title">Educación Ambiental</h2>
+        <p class="section-subtitle">Recursos para una comunidad informada</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>Guías de Reciclaje</h3>
+                <p>Aprende cómo separar, almacenar y entregar correctamente tus dispositivos electrónicos para su reciclaje seguro.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🎥</div>
+                <h3>Videos Educativos</h3>
+                <p>Contenido audiovisual sobre el impacto del e-waste, procesos de reciclaje y historias de éxito en la comunidad.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Estadísticas e Impacto</h3>
+                <p>Visualiza datos en tiempo real sobre el e-waste recolectado, materiales recuperados y beneficios ambientales logrados.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3>Certificaciones</h3>
+                <p>Obtén reconocimientos por tu compromiso con el reciclaje y conviértete en embajador ambiental de la comunidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anexos Section -->
+    <section class="container bg-light" id="anexos">
+        <h2 class="section-title">Anexos</h2>
+        <p class="section-subtitle">Documentación complementaria del proyecto</p>
+        
+        <!-- Cronograma -->
+        <div style="margin-top: 3rem;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-dark);">📅 Cronograma de Actividades</h3>
+            <table class="tabla-cronograma">
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Actividad</th>
+                        <th>Duración</th>
+                        <th>Responsables</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fase 1</td>
+                        <td>Investigación y análisis de requerimientos</td>
+                        <td>2 semanas</td>
+                        <td>Equipo completo</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 2</td>
+                        <td>Diseño de arquitectura y prototipos</td>
+                        <td>3 semanas</td>
+                        <td>Diseñadores y arquitectos de software</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 3</td>
+                        <td>Desarrollo del frontend (módulos de usuario)</td>
+                        <td>4 semanas</td>
+                        <td>Desarrolladores frontend</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 4</td>
+                        <td>Desarrollo del backend y APIs</td>
+                        <td>4 semanas</td>
+                        <td>Desarrolladores backend</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 5</td>
+                        <td>Integración de módulos y base de datos</td>
+                        <td>2 semanas</td>
+                        <td>Equipo de desarrollo</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 6</td>
+                        <td>Pruebas de funcionalidad y seguridad</td>
+                        <td>2 semanas</td>
+                        <td>QA testers</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 7</td>
+                        <td>Implementación de geolocalización y mapas</td>
+                        <td>1 semana</td>
+                        <td>Especialistas en GIS</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 8</td>
+                        <td>Desarrollo de tienda virtual y pagos</td>
+                        <td>2 semanas</td>
+                        <td>Desarrolladores fullstack</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 9</td>
+                        <td>Creación de contenido educativo</td>
+                        <td>2 semanas</td>
+                        <td>Equipo de contenido</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 10</td>
+                        <td>Piloto con usuarios y ajustes</td>
+                        <td>2 semanas</td>
+                        <td>Equipo completo</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 11</td>
+                        <td>Lanzamiento oficial y capacitación</td>
+                        <td>1 semana</td>
+                        <td>Equipo de gestión</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 12</td>
+                        <td>Mantenimiento y mejora continua</td>
+                        <td>Permanente</td>
+                        <td>Equipo de soporte</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Carta de Llamado -->
+        <div style="margin-top: 4rem;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-dark);">📄 Carta de Llamado</h3>
+            <div class="carta">
+                <div class="carta-header">
+                    <p>San Pedro de Macorís, República Dominicana</p>
+                    <p>Fecha: [Día] de [Mes] de 2024</p>
+                </div>
+                
+                <p style="margin-bottom: 1rem;"><strong>A la comunidad de San Pedro de Macorís,</strong></p>
+                
+                <p style="margin-bottom: 1rem; text-align: justify;">
+                    Por medio de la presente, el equipo de desarrollo de <strong>ReciclaTEC</strong>, estudiantes de la Universidad Central del Este, extendemos una cordial invitación a toda la comunidad —ciudadanos, empresas, instituciones educativas y entidades gubernamentales— a unirse a esta iniciativa pionera de gestión y reciclaje de residuos electrónicos.
+                </p>
+                
+                <p style="margin-bottom: 1rem; text-align: justify;">
+                    La acumulación de e-waste en nuestra ciudad representa un desafío ambiental y de salud pública que requiere acción inmediata. ReciclaTEC es una plataforma digital diseñada para facilitar la recolección, procesamiento y reutilización responsable de dispositivos electrónicos, transformando este problema en una oportunidad para el desarrollo sostenible de nuestra región.
+                </p>
+                
+                <p style="margin-bottom: 1rem; text-align: justify;">
+                    Hacemos un llamado a su participación activa en este proyecto que no solo protegerá nuestro medio ambiente, sino que también generará empleo, promoverá la educación ambiental y posicionará a San Pedro de Macorís como líder regional en sostenibilidad tecnológica.
+                </p>
+                
+                <p style="margin-bottom: 1rem; text-align: justify;">
+                    Los invitamos a registrarse en nuestra plataforma, utilizar nuestros puntos de recolección, participar en nuestros programas educativos y contribuir con donaciones o voluntariado. Juntos podemos construir un futuro más limpio y verde para nuestras familias y futuras generaciones.
+                </p>
+                
+                <p style="margin-bottom: 2rem; text-align: justify;">
+                    Para más información sobre cómo participar, pueden contactarnos a través de nuestra plataforma web o nuestras redes sociales.
+                </p>
+                
+                <p style="margin-bottom: 0.5rem;"><strong>Atentamente,</strong></p>
+                <p style="margin-bottom: 0.5rem;"><strong>Equipo ReciclaTEC</strong></p>
+                <p>Universidad Central del Este</p>
+                <p>Facultad de Ingeniería y Tecnología</p>
+            </div>
+        </div>
+
+        <!-- Galería de Imágenes -->
+        <div style="margin-top: 4rem;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-dark);">🖼️ Galería de Imágenes</h3>
+            <div class="interfaces-grid">
+                <div class="card">
+                    <img src="/placeholder.svg?height=250&width=350" alt="Punto de Reciclaje" class="interface-img" style="height: 250px;">
+                    <h4>Punto de Recolección</h4>
+                </div>
+                <div class="card">
+                    <img src="/placeholder.svg?height=250&width=350" alt="Clasificación de E-Waste" class="interface-img" style="height: 250px;">
+                    <h4>Clasificación de E-Waste</h4>
+                </div>
+                <div class="card">
+                    <img src="/placeholder.svg?height=250&width=350" alt="Reacondicionamiento" class="interface-img" style="height: 250px;">
+                    <h4>Reacondicionamiento</h4>
+                </div>
+                <div class="card">
+                    <img src="/placeholder.svg?height=250&width=350" alt="Educación Ambiental" class="interface-img" style="height: 250px;">
+                    <h4>Educación Ambiental</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section class="container" id="contacto">
+        <h2 class="section-title">Contacto</h2>
+        <p class="section-subtitle">¿Tienes preguntas o quieres colaborar?</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📧</div>
+                <h3>Email</h3>
+                <p>reciclatec@uce.edu.do</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>Teléfono</h3>
+                <p>+1 (809) 529-XXXX</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📍</div>
+                <h3>Ubicación</h3>
+                <p>Universidad Central del Este<br>San Pedro de Macorís, RD</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Added platform CTA section before footer -->
+    <section class="platform-cta-section">
+        <h2 id="platformCTATitle">🚀 ¿Listo para comenzar?</h2>
+        <p id="platformCTAText">Accede a nuestra plataforma completa y explora todas las funcionalidades interactivas de ReciclaTEC</p>
+        <a href="plataforma.html" class="platform-btn" id="platformBtnText">Ver Plataforma →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>♻️ ReciclaTEC</h3>
+            <p>E-Waste Management and Recycling Platform</p>
+            <p>San Pedro de Macorís, Dominican Republic</p>
+            
+            <div class="integrantes">
+                <div class="integrante">Eliezer</div>
+                <div class="integrante">Noah</div>
+                <div class="integrante">Dionibel</div>
+                <div class="integrante">Esmirna</div>
+                <div class="integrante">Edmy</div>
+                <div class="integrante">Ángela</div>
+            </div>
+            
+            <p style="margin-top: 2rem;">Universidad Central del Este / English Immersion Program</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">© 2025 ReciclaTEC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .objetivo-card, .beneficio-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        let currentLang = 'es';
+        
+        const translations = {
+            es: {
+                // Navbar
+                navInicio: 'Inicio',
+                navProblema: 'Problema',
+                navSolucion: 'Solución',
+                navPlataforma: 'Plataforma',
+                navEducacion: 'Educación',
+                navContacto: 'Contacto',
+                translateBtn: 'English',
+                
+                // Hero
+                heroTitle: 'ReciclaTEC',
+                heroSubtitle: 'Plataforma de Gestión y Reciclaje de E-Waste en San Pedro de Macorís',
+                heroDescription: 'Transformando residuos electrónicos en oportunidades sostenibles para nuestra comunidad',
+                heroCTA: 'Comenzar',
+                
+                // Objetivos
+                objetivosTitle: 'Objetivos del Proyecto',
+                objetivosSubtitle: 'Nuestra misión para un futuro más sostenible',
+                objetivoGeneralTitle: '🎯 Objetivo General',
+                objetivoGeneral: 'Desarrollar una plataforma web integral de gestión y reciclaje de residuos electrónicos (e-waste) para la ciudad de San Pedro de Macorís, que facilite la recolección, procesamiento y reutilización de dispositivos electrónicos, promoviendo prácticas sostenibles y reduciendo el impacto ambiental de los desechos tecnológicos en la región.',
+                objetivosEspecificosTitle: '📋 Objetivos Específicos',
+                
+                // Problema
+                problemaTitle: 'Identificación del Problema',
+                problemaSubtitle: 'El desafío del e-waste en San Pedro de Macorís',
+                problemaCard1Title: 'Problema Identificado',
+                problemaCard2Title: 'Planteamiento del Problema',
+                
+                // Base Teórica
+                baseTitle: 'Base Teórica',
+                baseSubtitle: 'Fundamentos que sustentan nuestra solución',
+                baseCard1Title: 'Impacto Ambiental del E-Waste',
+                baseCard2Title: 'Rol de la Ingeniería de Software',
+                baseCard3Title: 'Tecnologías para Sostenibilidad',
+                baseCard4Title: 'Ejemplo Exitoso: E-Parisaraa (India)',
+                
+                // Beneficios
+                beneficiosTitle: 'Beneficios del Proyecto',
+                beneficiosSubtitle: 'Impacto positivo en múltiples dimensiones',
+                beneficio1Title: 'Ambientales',
+                beneficio2Title: 'Económicos',
+                beneficio3Title: 'Sociales',
+                beneficio4Title: 'Empresas/Gobierno',
+                beneficio5Title: 'Tecnológicos',
+                
+                // Solución
+                solucionTitle: 'Acciones que Resuelven el Problema',
+                solucionSubtitle: 'Estrategias integradas para una gestión efectiva',
+                solucion1Title: 'Puntos de Recolección',
+                solucion2Title: 'Educación y Concienciación',
+                solucion3Title: 'Economía Circular',
+                solucion4Title: 'Colaboración Interinstitucional',
+                
+                // Plataforma
+                plataformaTitle: 'Módulos de la Plataforma',
+                plataformaSubtitle: 'Sistema integral de gestión de e-waste',
+                modulo1Title: 'Registro de Usuarios',
+                modulo2Title: 'Geolocalización',
+                modulo3Title: 'Tienda Virtual',
+                modulo4Title: 'Gestión de Almacenes',
+                modulo5Title: 'Apartado Educativo',
+                modulo6Title: 'Sistema de Donativos',
+                modulo7Title: 'Integración Empresarial',
+                
+                // Usuarios
+                usuariosTitle: 'Usuarios del Sistema',
+                usuariosSubtitle: 'Plataforma diseñada para múltiples actores',
+                usuario1Title: 'Ciudadanos',
+                usuario2Title: 'Empresas',
+                usuario3Title: 'Gobierno Local',
+                funcionalidades: 'Funcionalidades:',
+                
+                // Especificaciones
+                especTitle: 'Especificaciones de Diseño',
+                especSubtitle: 'Arquitectura y características técnicas',
+                espec1Title: 'Diseño de la Plataforma',
+                espec2Title: 'Arquitectura Técnica',
+                
+                // Interfaces
+                interfacesTitle: 'Interfaces (Vista Prototipo)',
+                interfacesSubtitle: 'Visualización de los módulos principales',
+                interface1Title: 'Dashboard Principal',
+                interface2Title: 'Módulo de Geolocalización',
+                interface3Title: 'Tienda Virtual',
+                interface4Title: 'Gestión de Inventario',
+                interface5Title: 'Módulo Educativo',
+                interface6Title: 'Sistema de Donativos',
+                
+                // Conclusión
+                conclusionTitle: 'Conclusión',
+                
+                // Educación
+                educacionTitle: 'Educación Ambiental',
+                educacionSubtitle: 'Recursos para una comunidad informada',
+                edu1Title: 'Guías de Reciclaje',
+                edu2Title: 'Videos Educativos',
+                edu3Title: 'Estadísticas e Impacto',
+                edu4Title: 'Certificaciones',
+                
+                // Anexos
+                anexosTitle: 'Anexos',
+                anexosSubtitle: 'Documentación complementaria del proyecto',
+                cronogramaTitle: '📅 Cronograma de Actividades',
+                cartaTitle: '📄 Carta de Llamado',
+                galeriaTitle: '🖼️ Galería de Imágenes',
+                
+                // Tabla Cronograma
+                thFase: 'Fase',
+                thActividad: 'Actividad',
+                thDuracion: 'Duración',
+                thResponsables: 'Responsables',
+                
+                // Contacto
+                contactoTitle: 'Contacto',
+                contactoSubtitle: '¿Tienes preguntas o quieres colaborar?',
+                contacto1Title: 'Email',
+                contacto2Title: 'Teléfono',
+                contacto3Title: 'Ubicación',
+                
+                // Platform CTA
+                platformCTATitle: '🚀 ¿Listo para comenzar?',
+                platformCTAText: 'Accede a nuestra plataforma completa y explora todas las funcionalidades interactivas de ReciclaTEC',
+                platformBtn: 'Ver Plataforma →',
+                
+                // Footer
+                footerTitle: 'Plataforma de Gestión y Reciclaje de E-Waste',
+                footerLocation: 'San Pedro de Macorís, República Dominicana',
+                footerUniversidad: 'Universidad Central del Este',
+                footerFacultad: 'Facultad de Ingeniería y Tecnología',
+                footerDerechos: '© 2025 ReciclaTEC. Todos los derechos reservados.'
+            },
+            en: {
+                // Navbar
+                navInicio: 'Home',
+                navProblema: 'Problem',
+                navSolucion: 'Solution',
+                navPlataforma: 'Platform',
+                navEducacion: 'Education',
+                navContacto: 'Contact',
+                translateBtn: 'Español',
+                
+                // Hero
+                heroTitle: 'ReciclaTEC',
+                heroSubtitle: 'E-Waste Management and Recycling Platform in San Pedro de Macorís',
+                heroDescription: 'Transforming electronic waste into sustainable opportunities for our community',
+                heroCTA: 'Get Started',
+                
+                // Objetivos
+                objetivosTitle: 'Project Objectives',
+                objetivosSubtitle: 'Our mission for a more sustainable future',
+                objetivoGeneralTitle: '🎯 General Objective',
+                objetivoGeneral: 'Develop a comprehensive web platform for electronic waste (e-waste) management and recycling for the city of San Pedro de Macorís, facilitating the collection, processing, and reuse of electronic devices, promoting sustainable practices and reducing the environmental impact of technological waste in the region.',
+                objetivosEspecificosTitle: '📋 Specific Objectives',
+                
+                // Problema
+                problemaTitle: 'Problem Identification',
+                problemaSubtitle: 'The e-waste challenge in San Pedro de Macorís',
+                problemaCard1Title: 'Identified Problem',
+                problemaCard2Title: 'Problem Statement',
+                
+                // Base Teórica
+                baseTitle: 'Theoretical Framework',
+                baseSubtitle: 'Foundations supporting our solution',
+                baseCard1Title: 'Environmental Impact of E-Waste',
+                baseCard2Title: 'Role of Software Engineering',
+                baseCard3Title: 'Technologies for Sustainability',
+                baseCard4Title: 'Success Story: E-Parisaraa (India)',
+                
+                // Beneficios
+                beneficiosTitle: 'Project Benefits',
+                beneficiosSubtitle: 'Positive impact across multiple dimensions',
+                beneficio1Title: 'Environmental',
+                beneficio2Title: 'Economic',
+                beneficio3Title: 'Social',
+                beneficio4Title: 'Business/Government',
+                beneficio5Title: 'Technological',
+                
+                // Solución
+                solucionTitle: 'Actions Solving the Problem',
+                solucionSubtitle: 'Integrated strategies for effective management',
+                solucion1Title: 'Collection Points',
+                solucion2Title: 'Education and Awareness',
+                solucion3Title: 'Circular Economy',
+                solucion4Title: 'Inter-Institutional Collaboration',
+                
+                // Plataforma
+                plataformaTitle: 'Platform Modules',
+                plataformaSubtitle: 'Comprehensive e-waste management system',
+                modulo1Title: 'User Registration',
+                modulo2Title: 'Geolocation',
+                modulo3Title: 'Virtual Store',
+                modulo4Title: 'Warehouse Management',
+                modulo5Title: 'Educational Section',
+                modulo6Title: 'Donation System',
+                modulo7Title: 'Business Integration',
+                
+                // Usuarios
+                usuariosTitle: 'System Users',
+                usuariosSubtitle: 'Platform designed for multiple stakeholders',
+                usuario1Title: 'Citizens',
+                usuario2Title: 'Companies',
+                usuario3Title: 'Local Government',
+                funcionalidades: 'Features:',
+                
+                // Especificaciones
+                especTitle: 'Design Specifications',
+                especSubtitle: 'Architecture and technical features',
+                espec1Title: 'Platform Design',
+                espec2Title: 'Technical Architecture',
+                
+                // Interfaces
+                interfacesTitle: 'Interfaces (Prototype View)',
+                interfacesSubtitle: 'Visualization of main modules',
+                interface1Title: 'Main Dashboard',
+                interface2Title: 'Geolocation Module',
+                interface3Title: 'Virtual Store',
+                interface4Title: 'Inventory Management',
+                interface5Title: 'Educational Module',
+                interface6Title: 'Donation System',
+                
+                // Conclusión
+                conclusionTitle: 'Conclusion',
+                
+                // Educación
+                educacionTitle: 'Environmental Education',
+                educacionSubtitle: 'Resources for an informed community',
+                edu1Title: 'Recycling Guides',
+                edu2Title: 'Educational Videos',
+                edu3Title: 'Statistics & Impact',
+                edu4Title: 'Certifications',
+                
+                // Anexos
+                anexosTitle: 'Annexes',
+                anexosSubtitle: 'Complementary project documentation',
+                cronogramaTitle: '📅 Activity Schedule',
+                cartaTitle: '📄 Invitation Letter',
+                galeriaTitle: '🖼️ Image Gallery',
+                
+                // Tabla Cronograma
+                thFase: 'Phase',
+                thActividad: 'Activity',
+                thDuracion: 'Duration',
+                thResponsables: 'Responsible',
+                
+                // Contacto
+                contactoTitle: 'Contact',
+                contactoSubtitle: 'Have questions or want to collaborate?',
+                contacto1Title: 'Email',
+                contacto2Title: 'Phone',
+                contacto3Title: 'Location',
+                
+                // Platform CTA
+                platformCTATitle: '🚀 Ready to get started?',
+                platformCTAText: 'Access our complete platform and explore all interactive features of ReciclaTEC',
+                platformBtn: 'View Platform →',
+                
+                // Footer
+                footerTitle: 'E-Waste Management and Recycling Platform',
+                footerLocation: 'San Pedro de Macorís, Dominican Republic',
+                footerUniversidad: 'Central University of the East',
+                footerFacultad: 'Faculty of Engineering and Technology',
+                footerDerechos: '© 2025 ReciclaTEC. All rights reserved.'
+            }
+        };
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            applyTranslations();
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang;
+        }
+        
+        function applyTranslations() {
+            const t = translations[currentLang];
+            
+            // Update translate button
+            document.getElementById('translateText').textContent = t.translateBtn;
+            
+            // Update navbar
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks[0].textContent = t.navInicio;
+            navLinks[1].textContent = t.navProblema;
+            navLinks[2].textContent = t.navSolucion;
+            navLinks[3].textContent = t.navPlataforma;
+            navLinks[4].textContent = t.navEducacion;
+            navLinks[5].textContent = t.navContacto;
+            
+            // Update hero section
+            document.querySelector('.hero h1').textContent = t.heroTitle;
+            const heroParagraphs = document.querySelectorAll('.hero p');
+            heroParagraphs[0].textContent = t.heroSubtitle;
+            heroParagraphs[1].textContent = t.heroDescription;
+            document.querySelector('.btn-primary').textContent = t.heroCTA;
+            
+            // Update objetivos section
+            document.querySelector('#objetivos .section-title').textContent = t.objetivosTitle;
+            document.querySelector('#objetivos .section-subtitle').textContent = t.objetivosSubtitle;
+            document.querySelector('.objetivo-card:first-child h3').textContent = t.objetivoGeneralTitle;
+            document.querySelector('.objetivo-card:first-child p').textContent = t.objetivoGeneral;
+            document.querySelector('.objetivo-card:last-child h3').textContent = t.objetivosEspecificosTitle;
+            
+            // Update problema section
+            document.querySelector('#problema .section-title').textContent = t.problemaTitle;
+            document.querySelector('#problema .section-subtitle').textContent = t.problemaSubtitle;
+            const problemaCards = document.querySelectorAll('#problema .card h3');
+            if (problemaCards.length >= 2) {
+                problemaCards[0].textContent = t.problemaCard1Title;
+                problemaCards[1].textContent = t.problemaCard2Title;
+            }
+            
+            // Update base teórica section
+            document.querySelector('#base-teorica .section-title').textContent = t.baseTitle;
+            document.querySelector('#base-teorica .section-subtitle').textContent = t.baseSubtitle;
+            const baseCards = document.querySelectorAll('#base-teorica .card h3');
+            if (baseCards.length >= 4) {
+                baseCards[0].textContent = t.baseCard1Title;
+                baseCards[1].textContent = t.baseCard2Title;
+                baseCards[2].textContent = t.baseCard3Title;
+                baseCards[3].textContent = t.baseCard4Title;
+            }
+            
+            // Update beneficios section
+            document.querySelector('#beneficios .section-title').textContent = t.beneficiosTitle;
+            document.querySelector('#beneficios .section-subtitle').textContent = t.beneficiosSubtitle;
+            const beneficioCards = document.querySelectorAll('#beneficios .beneficio-card h3');
+            if (beneficioCards.length >= 5) {
+                beneficioCards[0].textContent = t.beneficio1Title;
+                beneficioCards[1].textContent = t.beneficio2Title;
+                beneficioCards[2].textContent = t.beneficio3Title;
+                beneficioCards[3].textContent = t.beneficio4Title;
+                beneficioCards[4].textContent = t.beneficio5Title;
+            }
+            
+            // Update solución section
+            document.querySelector('#solucion .section-title').textContent = t.solucionTitle;
+            document.querySelector('#solucion .section-subtitle').textContent = t.solucionSubtitle;
+            const solucionCards = document.querySelectorAll('#solucion .card h3');
+            if (solucionCards.length >= 4) {
+                solucionCards[0].textContent = t.solucion1Title;
+                solucionCards[1].textContent = t.solucion2Title;
+                solucionCards[2].textContent = t.solucion3Title;
+                solucionCards[3].textContent = t.solucion4Title;
+            }
+            
+            // Update plataforma section
+            document.querySelector('#plataforma .section-title').textContent = t.plataformaTitle;
+            document.querySelector('#plataforma .section-subtitle').textContent = t.plataformaSubtitle;
+            const moduloCards = document.querySelectorAll('#plataforma .card h3');
+            if (moduloCards.length >= 7) {
+                moduloCards[0].textContent = t.modulo1Title;
+                moduloCards[1].textContent = t.modulo2Title;
+                moduloCards[2].textContent = t.modulo3Title;
+                moduloCards[3].textContent = t.modulo4Title;
+                moduloCards[4].textContent = t.modulo5Title;
+                moduloCards[5].textContent = t.modulo6Title;
+                moduloCards[6].textContent = t.modulo7Title;
+            }
+            
+            // Update usuarios section
+            document.querySelector('#usuarios .section-title').textContent = t.usuariosTitle;
+            document.querySelector('#usuarios .section-subtitle').textContent = t.usuariosSubtitle;
+            const usuarioCards = document.querySelectorAll('#usuarios .card h3');
+            if (usuarioCards.length >= 3) {
+                usuarioCards[0].textContent = t.usuario1Title;
+                usuarioCards[1].textContent = t.usuario2Title;
+                usuarioCards[2].textContent = t.usuario3Title;
+            }
+            const usuarioFuncionalidades = document.querySelectorAll('#usuarios .card p strong');
+            usuarioFuncionalidades.forEach(el => {
+                el.textContent = t.funcionalidades;
+            });
+            
+            // Update especificaciones section
+            document.querySelector('#especificaciones .section-title').textContent = t.especTitle;
+            document.querySelector('#especificaciones .section-subtitle').textContent = t.especSubtitle;
+            const especCards = document.querySelectorAll('#especificaciones .card h3');
+            if (especCards.length >= 2) {
+                especCards[0].textContent = t.espec1Title;
+                especCards[1].textContent = t.espec2Title;
+            }
+            
+            // Update interfaces section
+            document.querySelector('#interfaces .section-title').textContent = t.interfacesTitle;
+            document.querySelector('#interfaces .section-subtitle').textContent = t.interfacesSubtitle;
+            const interfaceCards = document.querySelectorAll('#interfaces .card h3');
+            if (interfaceCards.length >= 6) {
+                interfaceCards[0].textContent = t.interface1Title;
+                interfaceCards[1].textContent = t.interface2Title;
+                interfaceCards[2].textContent = t.interface3Title;
+                interfaceCards[3].textContent = t.interface4Title;
+                interfaceCards[4].textContent = t.interface5Title;
+                interfaceCards[5].textContent = t.interface6Title;
+            }
+            
+            // Update conclusión section
+            document.querySelector('#conclusion .section-title').textContent = t.conclusionTitle;
+            
+            // Update educación section
+            document.querySelector('#educacion .section-title').textContent = t.educacionTitle;
+            document.querySelector('#educacion .section-subtitle').textContent = t.educacionSubtitle;
+            const educacionCards = document.querySelectorAll('#educacion .card h3');
+            if (educacionCards.length >= 4) {
+                educacionCards[0].textContent = t.edu1Title;
+                educacionCards[1].textContent = t.edu2Title;
+                educacionCards[2].textContent = t.edu3Title;
+                educacionCards[3].textContent = t.edu4Title;
+            }
+            
+            // Update anexos section
+            document.querySelector('#anexos .section-title').textContent = t.anexosTitle;
+            document.querySelector('#anexos .section-subtitle').textContent = t.anexosSubtitle;
+            const anexosTitles = document.querySelectorAll('#anexos h3');
+            if (anexosTitles.length >= 3) {
+                anexosTitles[0].textContent = t.cronogramaTitle;
+                anexosTitles[1].textContent = t.cartaTitle;
+                anexosTitles[2].textContent = t.galeriaTitle;
+            }
+            
+            // Update tabla cronograma headers
+            const tableTh = document.querySelectorAll('.tabla-cronograma th');
+            if (tableTh.length >= 4) {
+                tableTh[0].textContent = t.thFase;
+                tableTh[1].textContent = t.thActividad;
+                tableTh[2].textContent = t.thDuracion;
+                tableTh[3].textContent = t.thResponsables;
+            }
+            
+            // Update contacto section
+            document.querySelector('#contacto .section-title').textContent = t.contactoTitle;
+            document.querySelector('#contacto .section-subtitle').textContent = t.contactoSubtitle;
+            const contactoCards = document.querySelectorAll('#contacto .card h3');
+            if (contactoCards.length >= 3) {
+                contactoCards[0].textContent = t.contacto1Title;
+                contactoCards[1].textContent = t.contacto2Title;
+                contactoCards[2].textContent = t.contacto3Title;
+            }
+            
+            // Update platform CTA section
+            document.getElementById('platformCTATitle').textContent = t.platformCTATitle;
+            document.getElementById('platformCTAText').textContent = t.platformCTAText;
+            document.getElementById('platformBtnText').textContent = t.platformBtn;
+            
+            // Update footer
+            const footerParagraphs = document.querySelectorAll('.footer p');
+            if (footerParagraphs.length >= 6) {
+                footerParagraphs[0].textContent = t.footerTitle;
+                footerParagraphs[1].textContent = t.footerLocation;
+                footerParagraphs[footerParagraphs.length - 3].textContent = t.footerUniversidad;
+                footerParagraphs[footerParagraphs.length - 2].textContent = t.footerFacultad;
+                footerParagraphs[footerParagraphs.length - 1].textContent = t.footerDerechos;
+            }
+        }
+    </script>
+</body>
+</html>

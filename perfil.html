@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - ReciclaTEC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --light-green: #e8f8f5;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --warning: #f39c12;
+                        --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --dark-blue: #2980b9;
+            --light-green: #e8f8f5;
+            --light-blue: #ebf5fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-green);
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+                .footer {
+            background: linear-gradient(135deg, var(--dark-green), var(--dark-blue));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .integrantes {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integrante {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .profile-header {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: var(--text-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .activity-item {
+            padding: 1rem;
+            border-left: 3px solid var(--primary-green);
+            margin-bottom: 1rem;
+            background: var(--light-green);
+            border-radius: 5px;
+        }
+
+        .activity-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #ecf0f1;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">♻️ ReciclaTEC</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="plataforma.html">🏠 Home</a></li>
+                <li><a href="mapa.html">🗺️ Map</a></li>
+                <li><a href="tienda.html">🛒 Shop</a></li>
+                <li><a href="educacion.html">📚 Learn</a></li>
+                <li><a href="donativos.html">💝 Donations</a></li>
+                <li><a href="contacto.html">📧 Contact</a></li>
+                <li><a href="perfil.html">👤 Profile</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h2 id="userName">ReciclaTEC User</h2>
+                <p>Member since: <span id="memberSince">January 2024</span></p>
+                <p style="color: var(--primary-green); font-weight: 600;">Level: ♻️ Eco-Warrior</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value" id="devicesRecycled">12</div>
+                <div class="stat-label">Devices Recycled</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="pointsEarned">1,240</div>
+                <div class="stat-label">Points Earned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌱</div>
+                <div class="stat-value" id="co2Saved">45 kg</div>
+                <div class="stat-label">CO₂ Saved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value" id="badgesEarned">5</div>
+                <div class="stat-label">Badges Earned</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Next Level</h3>
+            <p>You need <strong>260 points</strong> to reach the "Eco-Champion" level</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;">75%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🏆 My Badges</h3>
+            <div>
+                <span class="badge">🌟 First Recycling</span>
+                <span class="badge">♻️ 10 Devices</span>
+                <span class="badge">🎓 Course Completed</span>
+                <span class="badge">💚 Eco-Ambassador</span>
+                <span class="badge">🛒 First Purchase</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📋 Recent Activity</h3>
+            <div class="activity-item">
+                <strong>You recycled a Dell laptop</strong>
+                <div class="activity-date">2 days ago - +150 points</div>
+            </div>
+            <div class="activity-item">
+                <strong>You completed the "Environmental Impact" course</strong>
+                <div class="activity-date">5 days ago - +200 points</div>
+            </div>
+            <div class="activity-item">
+                <strong>You purchased a refurbished monitor</strong>
+                <div class="activity-date">1 week ago - +50 points</div>
+            </div>
+            <div class="activity-item">
+                <strong>You recycled 2 mobile phones</strong>
+                <div class="activity-date">2 weeks ago - +100 points</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🎁 Redeem Points</h3>
+            <p style="margin-bottom: 1rem;">Use your points to get discounts in the shop or donate them to environmental causes</p>
+            <button style="padding: 0.75rem 2rem; background: linear-gradient(135deg, var(--primary-green), var(--primary-blue)); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">View Rewards</button>
+        </div>
+    </div>
+
+        <footer class="footer">
+        <div class="footer-content">
+            <h3>♻️ ReciclaTEC</h3>
+            <p>E-Waste Management and Recycling Platform</p>
+            <p>San Pedro de Macorís, Dominican Republic</p>
+            
+            <div class="integrantes">
+                <div class="integrante">Eliezer</div>
+                <div class="integrante">Noah</div>
+                <div class="integrante">Dionibel</div>
+                <div class="integrante">Esmirna</div>
+                <div class="integrante">Edmy</div>
+                <div class="integrante">Ángela</div>
+            </div>
+            
+            <p style="margin-top: 2rem;">Universidad Central del Este / English Immersion Program</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">© 2025 ReciclaTEC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load user data from localStorage if available
+        const userData = JSON.parse(localStorage.getItem('reciclatec_user_profile')) || {
+            name: 'ReciclaTEC User',
+            memberSince: 'January 2024',
+            devicesRecycled: 12,
+            points: 1240,
+            co2Saved: 45,
+            badges: 5
+        };
+
+        // Update profile display
+        document.getElementById('userName').textContent = userData.name;
+        document.getElementById('memberSince').textContent = userData.memberSince;
+        document.getElementById('devicesRecycled').textContent = userData.devicesRecycled;
+        document.getElementById('pointsEarned').textContent = userData.points.toLocaleString();
+        document.getElementById('co2Saved').textContent = userData.co2Saved + ' kg';
+        document.getElementById('badgesEarned').textContent = userData.badges;
+    </script>
+</body>
+</html>
