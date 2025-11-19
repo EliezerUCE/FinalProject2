@@ -100,12 +100,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 3rem;
+            /* Reduced padding to maximize screen space */
+            padding: 3rem 2rem;
             position: relative;
         }
 
         .section-content {
-            max-width: 1400px;
+            /* Increased max-width to use more horizontal space */
+            max-width: 95vw;
             width: 100%;
             animation: fadeInUp 1s ease;
         }
@@ -119,8 +121,8 @@
         }
 
         .hero-section h1 {
-            /* Much larger, bolder title for projector */
-            font-size: 6rem;
+            /* Increased title size even more for better visibility */
+            font-size: 8rem;
             margin-bottom: 2rem;
             animation: fadeInUp 1s ease;
             font-weight: 900;
@@ -129,16 +131,16 @@
         }
 
         .hero-section .subtitle {
-            /* Larger subtitle with better visibility */
-            font-size: 2.5rem;
+            /* Increased subtitle size */
+            font-size: 3.2rem;
             margin-bottom: 2rem;
             font-weight: 800;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
         }
 
         .hero-section .tagline {
-            /* Larger tagline */
-            font-size: 1.8rem;
+            /* Increased tagline size */
+            font-size: 2.2rem;
             margin-bottom: 3rem;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -147,15 +149,17 @@
         .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to fit more content */
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .team-card {
             /* Stronger background for better contrast */
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-            padding: 2.5rem;
+            /* Reduced padding to make cards more compact */
+            padding: 2rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
@@ -169,21 +173,22 @@
         }
 
         .team-icon {
-            /* Larger team icons */
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            /* Increased icon size */
+            font-size: 5rem;
+            margin-bottom: 1.2rem;
         }
 
         .team-role {
-            /* Larger, bolder role text */
-            font-size: 1.6rem;
+            /* Increased role text size */
+            font-size: 1.9rem;
             font-weight: 900;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .team-card p {
-            font-size: 1.2rem;
+            /* Increased description size */
+            font-size: 1.4rem;
             font-weight: 700;
         }
 
@@ -195,7 +200,8 @@
         .problema-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            /* Reduced gap to use more space */
+            gap: 3rem;
             align-items: center;
         }
 
@@ -204,20 +210,20 @@
         }
 
         .stat-big {
-            /* Even larger stats for projector */
-            font-size: 8rem;
+            /* Made stats even larger */
+            font-size: 10rem;
             font-weight: 900;
             color: var(--primary-green);
             line-height: 1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         .stat-label {
-            /* Larger, bolder labels */
-            font-size: 2.2rem;
+            /* Increased label size */
+            font-size: 2.6rem;
             color: var(--text-dark);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             font-weight: 800;
         }
 
@@ -226,10 +232,10 @@
         }
 
         .impact-list li {
-            /* Larger text with thicker borders */
-            font-size: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
+            /* Increased list item size */
+            font-size: 1.8rem;
+            padding: 1.8rem;
+            margin-bottom: 1rem;
             background: var(--light-green);
             border-left: 8px solid var(--primary-green);
             border-radius: 12px;
@@ -246,13 +252,15 @@
         .process-flow {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to maximize space */
+            gap: 1.8rem;
+            margin-top: 3rem;
         }
 
         .process-card {
             background: var(--white);
-            padding: 2.5rem;
+            /* Reduced padding for more compact cards */
+            padding: 2rem;
             border-radius: 20px;
             box-shadow: var(--shadow-lg);
             text-align: center;
@@ -264,7 +272,8 @@
         .process-card::after {
             content: '→';
             position: absolute;
-            right: -2.5rem;
+            /* Adjusted arrow position */
+            right: -1.8rem;
             top: 50%;
             transform: translateY(-50%);
             /* Larger arrow */
@@ -278,21 +287,22 @@
         }
 
         .process-icon {
-            /* Larger process icons */
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
+            /* Increased icon size */
+            font-size: 6rem;
+            margin-bottom: 1.2rem;
         }
 
         .process-title {
-            /* Larger, bolder titles */
-            font-size: 1.8rem;
+            /* Increased title size */
+            font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             color: var(--text-dark);
         }
 
         .process-card p {
-            font-size: 1.3rem;
+            /* Increased description size */
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -300,13 +310,15 @@
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to maximize space */
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .metric-card {
             background: var(--white);
-            padding: 2.5rem;
+            /* Reduced padding */
+            padding: 2rem;
             border-radius: 20px;
             box-shadow: var(--shadow-lg);
             text-align: center;
@@ -315,18 +327,18 @@
         }
 
         .metric-value {
-            /* Larger metric values */
-            font-size: 4.5rem;
+            /* Increased metric value size */
+            font-size: 5.5rem;
             font-weight: 900;
             color: var(--primary-green);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .metric-label {
-            /* Larger labels */
-            font-size: 1.4rem;
+            /* Increased label size */
+            font-size: 1.6rem;
             color: var(--text-dark);
-            margin-top: 0.8rem;
+            margin-top: 0.6rem;
             font-weight: 800;
         }
 
@@ -338,30 +350,32 @@
         .strategy-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 3.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to maximize space */
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .strategy-card {
             /* Solid background with thick border */
             background: var(--white);
-            padding: 3.5rem;
+            /* Reduced padding */
+            padding: 2.5rem;
             border-radius: 20px;
             border: 5px solid var(--primary-green);
             box-shadow: var(--shadow-lg);
         }
 
         .strategy-icon {
-            /* Larger icons */
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
+            /* Increased icon size */
+            font-size: 6rem;
+            margin-bottom: 1.2rem;
         }
 
         .strategy-title {
-            /* Larger, bolder titles */
-            font-size: 2.3rem;
+            /* Increased title size */
+            font-size: 2.6rem;
             font-weight: 900;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             color: var(--text-dark);
         }
 
@@ -370,9 +384,9 @@
         }
 
         .strategy-points li {
-            /* Larger list items */
-            font-size: 1.4rem;
-            padding: 1rem 0;
+            /* Increased list item size */
+            font-size: 1.6rem;
+            padding: 0.8rem 0;
             padding-left: 2.5rem;
             position: relative;
             font-weight: 700;
@@ -385,7 +399,8 @@
             left: 0;
             color: var(--primary-green);
             font-weight: 900;
-            font-size: 1.8rem;
+            /* Increased checkmark size */
+            font-size: 2rem;
         }
 
         /* Finanzas Section - CFO */
@@ -396,13 +411,15 @@
         .revenue-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 3.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to maximize space */
+            gap: 3rem;
+            margin-top: 3rem;
         }
 
         .revenue-card {
             background: var(--white);
-            padding: 3.5rem;
+            /* Reduced padding */
+            padding: 2.5rem;
             border-radius: 20px;
             box-shadow: var(--shadow-lg);
             position: relative;
@@ -423,10 +440,10 @@
         }
 
         .revenue-title {
-            /* Larger title */
-            font-size: 2.2rem;
+            /* Increased title size */
+            font-size: 2.6rem;
             font-weight: 900;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: var(--text-dark);
         }
 
@@ -434,8 +451,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
+            /* Reduced padding */
+            padding: 1.2rem;
+            margin-bottom: 1rem;
             background: var(--light-green);
             border-radius: 12px;
             /* Add border for definition */
@@ -443,14 +461,15 @@
         }
 
         .revenue-item span:first-child {
-            font-size: 1.4rem;
+            /* Increased text size */
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--text-dark);
         }
 
         .revenue-percentage {
-            /* Larger percentages */
-            font-size: 2.5rem;
+            /* Increased percentage size */
+            font-size: 2.8rem;
             font-weight: 900;
             color: var(--primary-green);
         }
@@ -463,14 +482,16 @@
         .partners-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            margin-top: 4rem;
+            /* Reduced gap to maximize space */
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .partner-card {
             /* Solid background with thick border */
             background: var(--white);
-            padding: 3.5rem;
+            /* Reduced padding */
+            padding: 2.5rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
@@ -484,21 +505,22 @@
         }
 
         .partner-icon {
-            /* Larger icons */
-            font-size: 6rem;
-            margin-bottom: 2rem;
+            /* Increased icon size */
+            font-size: 7rem;
+            margin-bottom: 1.5rem;
         }
 
         .partner-title {
-            /* Larger titles */
-            font-size: 2rem;
+            /* Increased title size */
+            font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             color: var(--text-dark);
         }
 
         .partner-card p {
-            font-size: 1.3rem;
+            /* Increased description size */
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -511,15 +533,17 @@
 
         .modules-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            margin-top: 4rem;
+            /* Changed to 4 columns to use more horizontal space */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .module-card {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-            padding: 2.5rem;
+            /* Reduced padding */
+            padding: 2rem;
             border-radius: 20px;
             border: 4px solid rgba(255, 255, 255, 0.4);
             transition: all 0.3s ease;
@@ -532,21 +556,22 @@
         }
 
         .module-icon {
-            /* Larger icons */
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
+            /* Increased icon size */
+            font-size: 5.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .module-title {
-            /* Larger titles */
-            font-size: 1.8rem;
+            /* Increased title size */
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .module-card p {
-            font-size: 1.2rem;
+            /* Increased description size */
+            font-size: 1.4rem;
             font-weight: 700;
         }
 
@@ -562,34 +587,37 @@
         .impact-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-            margin: 4rem 0;
+            /* Reduced gap and margins */
+            gap: 2.5rem;
+            margin: 3rem 0;
         }
 
         .impact-stat {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-            padding: 3.5rem;
+            /* Reduced padding */
+            padding: 2.5rem;
             border-radius: 20px;
             border: 4px solid rgba(255, 255, 255, 0.4);
         }
 
         .impact-icon {
-            /* Larger icons */
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
+            /* Increased icon size */
+            font-size: 6rem;
+            margin-bottom: 1.2rem;
         }
 
         .impact-value {
-            /* Larger values */
-            font-size: 3.5rem;
+            /* Increased value size */
+            font-size: 4rem;
             font-weight: 900;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .impact-stat p {
-            font-size: 1.3rem;
+            /* Increased description size */
+            font-size: 1.5rem;
             font-weight: 800;
         }
 
@@ -597,13 +625,14 @@
             display: flex;
             gap: 2.5rem;
             justify-content: center;
-            margin-top: 4rem;
+            /* Reduced margin */
+            margin-top: 3rem;
         }
 
         .btn-cta {
-            /* Larger buttons */
-            padding: 2rem 5rem;
-            font-size: 1.8rem;
+            /* Increased button size */
+            padding: 2.2rem 5.5rem;
+            font-size: 2rem;
             border: none;
             border-radius: 60px;
             font-weight: 900;
@@ -632,9 +661,9 @@
 
         /* Section Titles */
         .section-title {
-            /* Much larger section titles */
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
+            /* Increased title size even more */
+            font-size: 5.5rem;
+            margin-bottom: 1.2rem;
             text-align: center;
             font-weight: 900;
             text-transform: uppercase;
@@ -642,11 +671,11 @@
         }
 
         .section-subtitle {
-            /* Larger subtitles */
-            font-size: 2rem;
+            /* Increased subtitle size */
+            font-size: 2.4rem;
             color: var(--text-light);
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             font-weight: 800;
         }
 
